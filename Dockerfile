@@ -58,8 +58,7 @@ RUN apk add --no-progress --no-cache \
   && sed -i 's/memory_limit = .*/memory_limit = ${PHP_MEMORY_LIMIT}/' /etc/php8/php.ini \
   && chmod +x /usr/local/bin/composer \
   && mkdir -p /run/php /flarum/app \
-  # 使用 --ignore-platform-reqs=ext-gd 避免潜在的 gd 库版本检查问题（如果你的基础镜像 gd 版本稍有不同）
-  && COMPOSER_CACHE_DIR="/tmp" composer create-project flarum/flarum:$VERSION /flarum/app --ignore-platform-reqs=ext-gd \
+  && COMPOSER_CACHE_DIR="/tmp" composer create-project flarum/flarum:$VERSION /flarum/app \
   && composer clear-cache \
   && rm -rf /flarum/.composer /tmp/* \
   && setcap CAP_NET_BIND_SERVICE=+eip /usr/sbin/nginx
